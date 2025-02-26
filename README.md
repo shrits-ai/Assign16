@@ -45,152 +45,60 @@ The script trains four different model configurations:
 ## Training Logs
 The training logs indicate that there are some NaN values in the loss and Dice coefficient. This suggests possible issues with data preprocessing or model stability.
 ```
-python3 customUNet.py 
-Using device: /CPU:0
+ python3 customUNet.py
+[]
+Using device: /GPU:0
+2025-02-26 15:27:14.960927: I metal_plugin/src/device/metal_device.cc:1154] Metal device set to: Apple M1 Pro
+2025-02-26 15:27:14.960954: I metal_plugin/src/device/metal_device.cc:296] systemMemory: 16.00 GB
+2025-02-26 15:27:14.960961: I metal_plugin/src/device/metal_device.cc:313] maxCacheSize: 5.33 GB
+2025-02-26 15:27:14.960978: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:305] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
+2025-02-26 15:27:14.960996: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:271] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -> physical PluggableDevice (device: 0, name: METAL, pci bus id: <undefined>)
 Loading 5912 training pairs...
+Unique mask values: [0. 1.]
 Loading 1478 validation pairs...
 
-Training MP_Tr_BCE on /CPU:0...
-Epoch 1/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4287s 12s/step - accuracy: 0.0026 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 2/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4305s 12s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 3/15
-360/370 ━━━━━━━━━━━━━━━━━━━━ 1:48 11s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan^R[ 
-  
-
-
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4307s 12s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 4/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4311s 12s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 5/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4300s 12s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 6/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4284s 12s/step - accuracy: 0.0030 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 7/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4383s 12s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 8/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4313s 12s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 9/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4278s 12s/step - accuracy: 0.0027 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 10/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4249s 11s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 11/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4246s 11s/step - accuracy: 0.0027 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 12/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4257s 12s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 13/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4243s 11s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 14/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4242s 11s/step - accuracy: 0.0029 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 15/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4238s 11s/step - accuracy: 0.0029 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+Training MP_Tr_BCE on /GPU:0...
+Epoch 1/5
+2025-02-26 15:28:50.128347: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:117] Plugin optimizer for device_type GPU is enabled.
+370/370 ━━━━━━━━━━━━━━━━━━━━ 580s 2s/step - accuracy: 0.9961 - dice_coef: 0.9511 - loss: 0.1115 - val_accuracy: 0.9950 - val_dice_coef: 0.9955 - val_loss: 0.0240
+Epoch 2/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 558s 2s/step - accuracy: 0.9963 - dice_coef: 0.9953 - loss: 0.0209 - val_accuracy: 0.9950 - val_dice_coef: 0.9955 - val_loss: 0.0199
+Epoch 3/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 563s 2s/step - accuracy: 0.9961 - dice_coef: 0.9956 - loss: 0.0193 - val_accuracy: 0.9950 - val_dice_coef: 0.9956 - val_loss: 0.0176
+Epoch 4/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 568s 2s/step - accuracy: 0.9961 - dice_coef: 0.9960 - loss: 0.0172 - val_accuracy: 0.9950 - val_dice_coef: 0.9965 - val_loss: 0.0160
+Epoch 5/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 563s 2s/step - accuracy: 0.9959 - dice_coef: 0.9963 - loss: 0.0156 - val_accuracy: 0.9950 - val_dice_coef: 0.9954 - val_loss: 0.0150
 Loading 5912 training pairs...
+Unique mask values: [0. 1.]
 Loading 1478 validation pairs...
 
-Training MP_Tr_Dice on /CPU:0...
-Epoch 1/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4322s 12s/step - accuracy: 0.0022 - dice_coef: 1.8392 - loss: -0.8392 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 2/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4340s 12s/step - accuracy: 0.0024 - dice_coef: 1.9827 - loss: -0.9827 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 3/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4340s 12s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 4/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4337s 12s/step - accuracy: 0.0023 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 5/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4316s 12s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 6/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4321s 12s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 7/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4320s 12s/step - accuracy: 0.0022 - dice_coef: 1.9827 - loss: -0.9827 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 8/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4429s 12s/step - accuracy: 0.0021 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 9/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4392s 12s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 10/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4395s 12s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 11/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4870s 13s/step - accuracy: 0.0023 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 12/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4470s 12s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 13/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4574s 12s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 14/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4649s 13s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 15/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4416s 12s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+Training MP_Tr_Dice on /GPU:0...
+Epoch 1/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 558s 1s/step - accuracy: 0.9887 - dice_coef: 0.9498 - loss: 0.0502 - val_accuracy: 0.9950 - val_dice_coef: 0.9975 - val_loss: 0.0025
+Epoch 2/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 552s 1s/step - accuracy: 0.9962 - dice_coef: 0.9981 - loss: 0.0019 - val_accuracy: 0.9950 - val_dice_coef: 0.9975 - val_loss: 0.0025
+Epoch 3/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 558s 2s/step - accuracy: 0.9960 - dice_coef: 0.9980 - loss: 0.0020 - val_accuracy: 0.9950 - val_dice_coef: 0.9975 - val_loss: 0.0025
+Epoch 4/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 554s 1s/step - accuracy: 0.9962 - dice_coef: 0.9981 - loss: 0.0019 - val_accuracy: 0.9950 - val_dice_coef: 0.9975 - val_loss: 0.0025
+Epoch 5/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 548s 1s/step - accuracy: 0.9961 - dice_coef: 0.9981 - loss: 0.0019 - val_accuracy: 0.9950 - val_dice_coef: 0.9975 - val_loss: 0.0025
 Loading 5912 training pairs...
+Unique mask values: [0. 1.]
 Loading 1478 validation pairs...
 
-Training StrConv_Tr_BCE on /CPU:0...
-Epoch 1/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4568s 12s/step - accuracy: 0.0026 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 2/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4591s 12s/step - accuracy: 0.0027 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 3/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4570s 12s/step - accuracy: 0.0029 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 4/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4576s 12s/step - accuracy: 0.0027 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 5/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4574s 12s/step - accuracy: 0.0029 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 6/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4561s 12s/step - accuracy: 0.0027 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 7/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4574s 12s/step - accuracy: 0.0026 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 8/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4575s 12s/step - accuracy: 0.0027 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 9/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4578s 12s/step - accuracy: 0.0030 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 10/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4569s 12s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 11/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4707s 13s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 12/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4679s 13s/step - accuracy: 0.0030 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 13/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4831s 13s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 14/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 8340s 23s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-Epoch 15/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 4475s 12s/step - accuracy: 0.0028 - dice_coef: nan - loss: nan - val_accuracy: 0.0037 - val_dice_coef: nan - val_loss: nan
-WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
-Loading 5912 training pairs...
-Loading 1478 validation pairs...
-
-Training StrConv_Ups_Dice on /CPU:0...
-Epoch 1/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5158s 14s/step - accuracy: 0.0022 - dice_coef: 1.8707 - loss: -0.8707 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 2/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5264s 14s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 3/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5386s 15s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 4/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5435s 15s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 5/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5298s 14s/step - accuracy: 0.0022 - dice_coef: 1.9827 - loss: -0.9827 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 6/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5361s 14s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 7/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5383s 15s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 8/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5370s 15s/step - accuracy: 0.0022 - dice_coef: 1.9827 - loss: -0.9827 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 9/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5385s 15s/step - accuracy: 0.0022 - dice_coef: 1.9827 - loss: -0.9827 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 10/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5381s 15s/step - accuracy: 0.0023 - dice_coef: 1.9827 - loss: -0.9827 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 11/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5368s 15s/step - accuracy: 0.0022 - dice_coef: 1.9827 - loss: -0.9827 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 12/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5441s 15s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 13/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5572s 15s/step - accuracy: 0.0021 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 14/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5462s 15s/step - accuracy: 0.0022 - dice_coef: 1.9827 - loss: -0.9827 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-Epoch 15/15
-370/370 ━━━━━━━━━━━━━━━━━━━━ 5513s 15s/step - accuracy: 0.0022 - dice_coef: 1.9828 - loss: -0.9828 - val_accuracy: 0.0025 - val_dice_coef: 1.9828 - val_loss: -0.9828
-WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+Training StrConv_Tr_BCE on /GPU:0...
+Epoch 1/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 618s 2s/step - accuracy: 0.9961 - dice_coef: 0.9400 - loss: 0.1356 - val_accuracy: 0.9950 - val_dice_coef: 0.9944 - val_loss: 0.0227
+Epoch 2/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 598s 2s/step - accuracy: 0.9962 - dice_coef: 0.9950 - loss: 0.0216 - val_accuracy: 0.9950 - val_dice_coef: 0.9942 - val_loss: 0.0198
+Epoch 3/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 602s 2s/step - accuracy: 0.9962 - dice_coef: 0.9954 - loss: 0.0195 - val_accuracy: 0.9950 - val_dice_coef: 0.9954 - val_loss: 0.0172
+Epoch 4/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 597s 2s/step - accuracy: 0.9961 - dice_coef: 0.9960 - loss: 0.0168 - val_accuracy: 0.9950 - val_dice_coef: 0.9957 - val_loss: 0.0161
+Epoch 5/5
+370/370 ━━━━━━━━━━━━━━━━━━━━ 595s 2s/step - accuracy: 0.9964 - dice_coef: 0.9965 - loss: 0.0148 - val_accuracy: 0.9950 - val_dice_coef: 0.9948 - val_loss: 0.0167
 ```
 
 
