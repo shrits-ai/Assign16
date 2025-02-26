@@ -10,6 +10,7 @@ from PIL import Image
 
 # Set device based on availability
 def get_available_device():
+    print(tf.config.list_physical_devices('MPS'))
     if tf.config.list_physical_devices('GPU'):
         return '/GPU:0'  # CUDA-enabled GPU
     elif tf.config.list_physical_devices('MPS'):
@@ -26,14 +27,8 @@ print(f"Using device: {device}")
 
 def load_custom_dataset(image_dir, mask_dir, img_size=256, test_size=0.2, batch_size=16):
     # Get paired image/mask files with validation
-        # Debug: List directory contents
-    #print("\nImage directory contents:", os.listdir(image_dir))
-    #print("Mask directory contents:", os.listdir(mask_dir))
-    
-    # Get paired files
     file_pairs = []
     for img_file in os.listdir(image_dir):
-        #print("\nImage directory contents:", img_file)
         if img_file.endswith('.jpg'):
             mask_path = os.path.join(mask_dir, img_file)
             if os.path.exists(mask_path):
@@ -44,36 +39,38 @@ def load_custom_dataset(image_dir, mask_dir, img_size=256, test_size=0.2, batch_
     if not file_pairs:
         raise ValueError(f"No valid pairs found. Check filenames/extensions.")
 
-    
     # Split into train/validation
     train_pairs, val_pairs = train_test_split(
         file_pairs, test_size=test_size, random_state=42
     )
 
     # Load data with progress tracking
+    # Load data with progress tracking
     def load_batch(pairs):
-        X = np.zeros((len(pairs), img_size, img_size, 3))
-        y = np.zeros((len(pairs), img_size, img_size, 1))
+        X = np.zeros((len(pairs), img_size, img_size, 3), dtype=np.float32)
+        y = np.zeros((len(pairs), img_size, img_size, 1), dtype=np.float32)
         
         for idx, (img_file, mask_file) in enumerate(pairs):
             # Load image
             img_path = os.path.join(image_dir, img_file)
             img = Image.open(img_path).convert('RGB')
             img = img.resize((img_size, img_size))
-            X[idx] = np.array(img) / 256.0  # Your normalization
+            X[idx] = np.array(img) / 255.0  # Normalize to [0,1]
             
             # Load mask
             mask_path = os.path.join(mask_dir, mask_file)
             mask = Image.open(mask_path)
             mask = mask.resize((img_size, img_size))
-            mask_array = np.array(mask.convert('L'))  # Grayscale
-            y[idx] = mask_array[..., np.newaxis] - 1  # Your mask processing
-            
+            mask_array = np.array(mask.convert('L'))  # Grayscale (256,256)
+            mask_binary = np.where(mask_array > 0, 1, 0).astype(np.float32)
+            mask_binary = np.expand_dims(mask_binary, axis=-1)  # Add channel dimension
+            y[idx] = mask_binary
         return X, y
 
     # Load datasets with validation
     print(f"Loading {len(train_pairs)} training pairs...")
     X_train, y_train = load_batch(train_pairs)
+    print("Unique mask values:", np.unique(y_train))
     print(f"Loading {len(val_pairs)} validation pairs...")
     X_val, y_val = load_batch(val_pairs)
 
@@ -93,6 +90,7 @@ def load_custom_dataset(image_dir, mask_dir, img_size=256, test_size=0.2, batch_
     val_ds = tf.data.Dataset.from_tensor_slices((X_val, y_val))
     val_ds = val_ds.batch(batch_size).prefetch(tf.data.AUTOTUNE)
 
+    
     return train_ds, val_ds
 
 # ==============================================================================
@@ -100,8 +98,10 @@ def load_custom_dataset(image_dir, mask_dir, img_size=256, test_size=0.2, batch_
 # ==============================================================================
 
 def conv_block(x, filters, kernel_size=(3,3), activation='relu'):
-    x = Conv2D(filters, kernel_size, padding='same', activation=activation)(x)
-    x = Conv2D(filters, kernel_size, padding='same', activation=activation)(x)
+    x = Conv2D(filters, kernel_size, padding='same', activation=activation,
+               kernel_initializer='he_normal')(x)
+    x = Conv2D(filters, kernel_size, padding='same', activation=activation,
+               kernel_initializer='he_normal')(x)
     return x
 
 
@@ -146,9 +146,7 @@ def build_unet(input_shape=(256,256,3), use_maxpool=True, use_transpose=True):
 
 
 def dice_loss(y_true, y_pred):
-    smooth = 1e-6
-    y_true = K.cast(y_true, 'float32')
-    y_pred = K.cast(y_pred, 'float32')
+    smooth = 1e-6  # Prevents division by zero
     y_true_f = K.flatten(y_true)
     y_pred_f = K.flatten(y_pred)
     intersection = K.sum(y_true_f * y_pred_f)
@@ -181,12 +179,12 @@ def train_model(config_name, image_dir, mask_dir,
       train_ds, val_ds = load_custom_dataset(image_dir, mask_dir, 
                                              img_size=img_size, 
                                              batch_size=batch_size)
-      
+
       # Build and compile model
       model = build_unet(input_shape=(img_size, img_size, 3),
                         use_maxpool=use_maxpool,
                         use_transpose=use_transpose)
-      model.compile(optimizer=Adam(1e-4),
+      model.compile(optimizer = Adam(learning_rate=1e-5, clipnorm=1.0),
                      loss=loss_fn,
                      metrics=[dice_coef, 'accuracy'])
       
@@ -196,8 +194,7 @@ def train_model(config_name, image_dir, mask_dir,
          validation_data=val_ds,
          epochs=epochs
       )
-      
-      model.save(f'{config_name}.h5')
+      model.save('my_model.keras')
       return history
 
 # ==============================================================================
@@ -210,7 +207,7 @@ if __name__ == "__main__":
     MASK_DIR = './images'    # Should contain .img masks
     IMG_SIZE = 256
     BATCH_SIZE = 16
-    EPOCHS = 15
+    EPOCHS = 5
 
     # Verify directory existence
     if not os.path.isdir(IMAGE_DIR):
