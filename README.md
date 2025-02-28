@@ -113,7 +113,7 @@ Epoch 3/5
 ```
 ## Inference from Training Logs
 
-###MP_Tr_BCE
+### MP_Tr_BCE
 
 -  Training Dice Coefficient improved from 0.9511 to 0.9963.
 
@@ -123,7 +123,7 @@ Epoch 3/5
 
 -  This configuration demonstrates consistent segmentation performance with binary cross-entropy.
 
-###MP_Tr_Dice
+### MP_Tr_Dice
 
 - Training Dice Coefficient reached 0.9981 by Epoch 2 and remained stable.
 
@@ -133,7 +133,7 @@ Epoch 3/5
 
 - This configuration shows that Dice Loss yields better segmentation performance compared to BCE.
 
-###StrConv_Tr_BCE
+### StrConv_Tr_BCE
 
 - Training Dice Coefficient improved from 0.9400 to 0.9965.
 
@@ -143,7 +143,7 @@ Epoch 3/5
 
 - This model exhibits stable convergence despite slower initial performance.
 
-###StrConv_Ups_Dice
+### StrConv_Ups_Dice
 
 - Training Dice Coefficient improved from 0.9668 to 0.9981.
 
@@ -153,7 +153,7 @@ Epoch 3/5
 
 - Longer training times, this configuration provides the best segmentation performance.
 
-##Conclusion
+## Conclusion
 
 - StrConv_Ups_Dice and MP_Tr_Dice configurations yield the highest Dice Coefficient and lowest loss, indicating that both configurations achieve similar performance.
 
