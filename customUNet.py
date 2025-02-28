@@ -170,7 +170,7 @@ def dice_coef(y_true, y_pred):
 def train_model(config_name, image_dir, mask_dir,
                use_maxpool=True, use_transpose=True,
                loss_fn='binary_crossentropy', epochs=50,
-               img_size=256, batch_size=16):
+               img_size=256, batch_size=8):
     with tf.device(device):
       # Set float precision
       K.set_floatx('float32')
@@ -194,7 +194,7 @@ def train_model(config_name, image_dir, mask_dir,
          validation_data=val_ds,
          epochs=epochs
       )
-      model.save('my_model.keras')
+      model.save(f'{config_name}.keras')
       return history
 
 # ==============================================================================
@@ -206,7 +206,7 @@ if __name__ == "__main__":
     IMAGE_DIR = './images/'  # Should contain .img files
     MASK_DIR = './images'    # Should contain .img masks
     IMG_SIZE = 256
-    BATCH_SIZE = 16
+    BATCH_SIZE = 8
     EPOCHS = 5
 
     # Verify directory existence
