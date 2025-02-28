@@ -111,55 +111,55 @@ Epoch 2/5
 Epoch 3/5
 739/739 ━━━━━━━━━━━━━━━━━━━━ 17226s 23s/step - accuracy: 0.9962 - dice_coef: 0.9981 - loss: 0.0019 - val_accuracy: 0.9950 - val_dice_coef: 0.9975 - val_loss: 0.0025
 ```
-nference from Training Logs
+## Inference from Training Logs
 
-MP_Tr_BCE
+###MP_Tr_BCE
 
-Training Dice Coefficient improved from 0.9511 to 0.9963.
+-  Training Dice Coefficient improved from 0.9511 to 0.9963.
 
-Validation Dice Coefficient stabilized at 0.9954.
+-  Validation Dice Coefficient stabilized at 0.9954.
 
-Loss reduced from 0.1115 to 0.0150.
+-  Loss reduced from 0.1115 to 0.0150.
 
-This configuration demonstrates consistent segmentation performance with binary cross-entropy.
+-  This configuration demonstrates consistent segmentation performance with binary cross-entropy.
 
-MP_Tr_Dice
+###MP_Tr_Dice
 
-Training Dice Coefficient reached 0.9981 by Epoch 2 and remained stable.
+- Training Dice Coefficient reached 0.9981 by Epoch 2 and remained stable.
 
-Validation Dice Coefficient stabilized at 0.9975.
+- Validation Dice Coefficient stabilized at 0.9975.
 
-Loss dropped significantly to 0.0019.
+- Loss dropped significantly to 0.0019.
 
-This configuration shows that Dice Loss yields better segmentation performance compared to BCE.
+- This configuration shows that Dice Loss yields better segmentation performance compared to BCE.
 
-StrConv_Tr_BCE
+###StrConv_Tr_BCE
 
-Training Dice Coefficient improved from 0.9400 to 0.9965.
+- Training Dice Coefficient improved from 0.9400 to 0.9965.
 
-Validation Dice Coefficient reached 0.9957.
+- Validation Dice Coefficient reached 0.9957.
 
-Loss decreased from 0.1356 to 0.0167.
+- Loss decreased from 0.1356 to 0.0167.
 
-This model exhibits stable convergence despite slower initial performance.
+- This model exhibits stable convergence despite slower initial performance.
 
-StrConv_Ups_Dice
+###StrConv_Ups_Dice
 
-Training Dice Coefficient improved from 0.9668 to 0.9981.
+- Training Dice Coefficient improved from 0.9668 to 0.9981.
 
-Validation Dice Coefficient remained stable at 0.9975.
+- Validation Dice Coefficient remained stable at 0.9975.
 
-Loss consistently dropped to 0.0019.
+- Loss consistently dropped to 0.0019.
 
-Despite longer training times, this configuration provides the best segmentation performance.
+- Longer training times, this configuration provides the best segmentation performance.
 
-Conclusion
+##Conclusion
 
-StrConv_Ups_Dice and MP_Tr_Dice configurations yield the highest Dice Coefficient and lowest loss, indicating that both configurations achieve similar performance.
+- StrConv_Ups_Dice and MP_Tr_Dice configurations yield the highest Dice Coefficient and lowest loss, indicating that both configurations achieve similar performance.
 
-Dice Loss outperforms Binary Cross-Entropy Loss in segmentation quality.
+- Dice Loss outperforms Binary Cross-Entropy Loss in segmentation quality.
 
-The model performs well on both training and validation datasets, indicating no major overfitting.
+- The model performs well on both training and validation datasets, indicating no major overfitting.
 
 
 
