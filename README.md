@@ -110,6 +110,10 @@ Epoch 2/5
 739/739 ━━━━━━━━━━━━━━━━━━━━ 17209s 23s/step - accuracy: 0.9962 - dice_coef: 0.9981 - loss: 0.0019 - val_accuracy: 0.9950 - val_dice_coef: 0.9975 - val_loss: 0.0025
 Epoch 3/5
 739/739 ━━━━━━━━━━━━━━━━━━━━ 17226s 23s/step - accuracy: 0.9962 - dice_coef: 0.9981 - loss: 0.0019 - val_accuracy: 0.9950 - val_dice_coef: 0.9975 - val_loss: 0.0025
+Epoch 4/5
+739/739 ━━━━━━━━━━━━━━━━━━━━ 17403s 24s/step - accuracy: 0.9959 - dice_coef: 0.9979 - loss: 0.0021 - val_accuracy: 0.9950 - val_dice_coef: 0.9975 - val_loss: 0.0025
+Epoch 5/5
+739/739 ━━━━━━━━━━━━━━━━━━━━ 17451s 24s/step - accuracy: 0.9958 - dice_coef: 0.9979 - loss: 0.0021 - val_accuracy: 0.9950 - val_dice_coef: 0.9975 - val_loss: 0.0025
 ```
 ## Inference from Training Logs
 
@@ -143,7 +147,7 @@ Epoch 3/5
 
 - This model exhibits stable convergence despite slower initial performance.
 
-### StrConv_Ups_Dice
+### StrConv_Ups_Dice ( trained with lower batch size because of memory issue )
 
 - Training Dice Coefficient improved from 0.9668 to 0.9981.
 
